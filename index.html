@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#26A69A" />
+  <title>LittleStar - Hành trình trưởng thành</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #26A69A;
+      --primary-dark: #00796B;
+      --kid-accent: #FF9800;
+      --bg-parent: #F4F8F9;
+      --bg-kid: #FFF9E6;
+      --card: #FFFFFF;
+      --text: #1F2937;
+      --muted: #6B7280;
+      --success: #16A34A;
+      --danger: #DC2626;
+      --border: #E5E7EB;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0;
+      font-family: 'Be Vietnam Pro', sans-serif;
+      background: var(--bg-parent);
+      color: var(--text);
+      padding-bottom: 40px;
+      transition: background 0.25s ease;
+    }
+    body.kid-mode { background: var(--bg-kid); }
+
+    .app-bar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--primary);
+      color: #fff;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    body.kid-mode .app-bar { background: var(--kid-accent); }
+    .app-title { font-size: 17px; font-weight: 700; margin: 0; }
+    .app-sub { font-size: 12px; opacity: 0.9; margin-top: 2px; }
+    .header-actions { display: flex; gap: 8px; align-items: center; }
+    .btn-ghost {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: #fff;
+      padding: 7px 11px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .summary-box {
+      background: #fff;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 62px;
+      z-index: 40;
+    }
+    .score-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .score-label { font-size: 12px; color: var(--muted); }
+    .score-val { font-size: 22px; font-weight: 700; color: var(--primary-dark); }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 9px 14px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .warning-banner {
+      margin-top: 10px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      background: #FEF3C7;
+      color: #92400E;
+      border: 1px solid #FCD34D;
+    }
+    .warning-banner.severe {
+      background: #FEE2E2;
+      color: #991B1B;
+      border-color: #FCA5A5;
+    }
+
+    .day-tabs {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      margin-top: 12px;
+    }
+    .day-btn {
+      padding: 8px 0;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #F9FAFB;
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--text);
+      cursor: pointer;
+    }
+    .day-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .container { padding: 12px; max-width: 680px; margin: 0 auto; }
+    .group-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin: 16px 4px 8px;
+    }
+    .card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .crit-info { flex: 1; }
+    .crit-title { font-size: 13.5px; font-weight: 600; line-height: 1.35; }
+    .crit-meta { font-size: 11.5px; color: var(--muted); margin-top: 4px; }
+    .crit-meta.danger { color: var(--danger); font-weight: 700; }
+
+    .action-group { display: flex; gap: 6px; align-items: center; }
+    .icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 2px solid #E5E7EB;
+      background: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      color: #9CA3AF;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .icon-btn.pass.active {
+      background: #DCFCE7;
+      border-color: var(--success);
+      color: var(--success);
+    }
+    .icon-btn.fail.active {
+      background: #FEE2E2;
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+    .counter-pill {
+      min-width: 48px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .kid-hero {
+      background: #fff;
+      border-radius: 20px;
+      padding: 22px 18px;
+      text-align: center;
+      margin-top: 8px;
+      box-shadow: 0 4px 12px rgba(255,152,0,0.1);
+    }
+    .progress-track {
+      width: 100%;
+      height: 14px;
+      background: #FEF3C7;
+      border-radius: 99px;
+      overflow: hidden;
+      margin: 14px 0 8px;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+    .badge {
+      padding: 5px 10px;
+      border-radius: 99px;
+      font-size: 12px;
+      font-weight: 700;
+      background: #F3F4F6;
+      color: #4B5563;
+    }
+    .badge.ready { background: #DCFCE7; color: #166534; }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 16px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-card {
+      background: #fff;
+      width: 100%;
+      max-width: 400px;
+      border-radius: 16px;
+      padding: 18px;
+    }
+    .modal-card h3 { margin: 0 0 10px; font-size: 16px; }
+    .modal-card input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 14px;
+      margin-bottom: 12px;
+      font-family: inherit;
+    }
+    .modal-footer { display: flex; justify-content: flex-end; gap: 8px; }
+    .sync-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #A7F3D0;
+      margin-right: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="app-bar">
+    <div>
+      <div class="app-title" id="headerTitle">LittleStar - Phụ Huynh</div>
+      <div class="app-sub"><span class="sync-dot" id="syncDot"></span><span id="headerSub">Con yêu (Lớp 6) • Ví: 120 Xu</span></div>
+    </div>
+    <div class="header-actions">
+      <button class="btn-ghost" onclick="pullFromCloud()" title="Tải dữ liệu mới nhất">🔄</button>
+      <button class="btn-ghost" onclick="openSettings()" id="btnSettings" title="Cài đặt">⚙️</button>
+      <button class="btn-ghost" onclick="toggleMode()" id="btnMode">Chế độ Con</button>
+    </div>
+  </header>
+
+  <div id="parentView">
+    <div class="summary-box">
+      <div class="score-row">
+        <div>
+          <div class="score-label">Tổng điểm tuần tạm tính</div>
+          <div class="score-val" id="totalScoreDisplay">0.0 / 300 đ</div>
+        </div>
+        <button class="btn-primary" onclick="closeWeek()">✓ Chốt tuần</button>
+      </div>
+      <div id="warningBox" class="warning-banner" style="display:none;"></div>
+      <div class="day-tabs" id="dayTabs"></div>
+    </div>
+    <div class="container" id="criteriaList"></div>
+  </div>
+
+  <div id="kidView" class="container" style="display:none;"></div>
+
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal-card" id="modalContent"></div>
+  </div>
+
+<script>
+const DEFAULT_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyo6QiQgJdmD_IFSuxrxiMHLJmD-Zi-urYNjwLQae-0EdLRQ8t1UwHh6Zmr6pCFz1Xv/exec";
+
+const DEFAULT_CRITERIA = [
+  { id: '1', group: 'I. Học tập trên lớp & ở nhà', title: '1. Chuẩn bị đầy đủ sách vở, dụng cụ học tập', max: 10, target: 5, type: 'daily', unit: 2 },
+  { id: '2', group: 'I. Học tập trên lớp & ở nhà', title: '2. Hoàn thành bài tập về nhà đầy đủ, nghiêm túc', max: 15.5, target: 5, type: 'daily', unit: 3.1 },
+  { id: '4', group: 'I. Học tập trên lớp & ở nhà', title: '4. Làm 1 đề toán nâng cao hoặc 8 bài/tuần', max: 40, target: 1, type: 'weekly', unit: 40 },
+  { id: '5', group: 'I. Học tập trên lớp & ở nhà', title: '5. Học 3 từ mới Tiếng Anh/ngày (20 từ/tuần)', max: 40, target: 7, type: 'daily', unit: 40/7 },
+  { id: '6', group: 'I. Học tập trên lớp & ở nhà', title: '6. Luyện nghe Tiếng Anh hàng ngày', max: 35, target: 7, type: 'daily', unit: 5 },
+  { id: '7', group: 'I. Học tập trên lớp & ở nhà', title: '7. Luyện chữ 2 buổi/tuần', max: 10, target: 2, type: 'weekly', unit: 5 },
+  { id: '8', group: 'I. Học tập trên lớp & ở nhà', title: '8. Học tối thiểu 1 tiếng/buổi cuối tuần (tối đa 2 buổi)', max: 30, target: 2, type: 'weekly', unit: 15 },
+
+  { id: '10', group: 'II. Trách nhiệm với việc nhà', title: '10. Tự giác thu dọn, giữ góc học tập gọn gàng', max: 10.5, target: 7, type: 'daily', unit: 1.5 },
+  { id: '11', group: 'II. Trách nhiệm với việc nhà', title: '11. Tự giác dọn dẹp sạch sẽ sau ăn', max: 10.5, target: 7, type: 'daily', unit: 1.5 },
+  { id: '12', group: 'II. Trách nhiệm với việc nhà', title: '12. Thu quần áo hàng ngày', max: 10.5, target: 7, type: 'daily', unit: 1.5 },
+  { id: '13', group: 'II. Trách nhiệm với việc nhà', title: '13. Lau cầu thang 1 lần/tuần', max: 5, target: 1, type: 'weekly', unit: 5 },
+  { id: '14', group: 'II. Trách nhiệm với việc nhà', title: '14. Dọn phòng 2 lần/tuần', max: 8, target: 2, type: 'weekly', unit: 4 },
+
+  { id: '15', group: 'III. Ý thức kỷ luật', title: '15. Xin phép & thông báo rõ giờ đi - về khi ra ngoài', max: 15, target: 7, type: 'daily', unit: 15/7 },
+  { id: '16', group: 'III. Ý thức kỷ luật', title: '16. Về nhà đúng giờ đã hẹn với bố mẹ', max: 15, target: 7, type: 'daily', unit: 15/7 },
+  { id: '17', group: 'III. Ý thức kỷ luật', title: '17. Chơi điện tử / xem TV đúng khung giờ thỏa thuận', max: 15, target: 7, type: 'daily', unit: 15/7 },
+  { id: '18', group: 'III. Ý thức kỷ luật', title: '18. Ngủ & dậy đúng giờ (22h-6h; cuối tuần 22h30-8h)', max: 15, target: 7, type: 'daily', unit: 15/7 },
+  { id: '19', group: 'III. Ý thức kỷ luật', title: '19. Không nói dối, luôn trung thực', max: 15, target: 7, type: 'daily', unit: 15/7 },
+
+  { id: '20', group: 'IV. Điểm thưởng khích lệ', title: '20. Được khen trên bảng tổng kết lớp (+10đ/lần)', max: 0, target: 0, type: 'bonus', unit: 10 },
+  { id: '21', group: 'IV. Điểm thưởng khích lệ', title: '21. Được cô bộ môn khen (+5đ/lần)', max: 0, target: 0, type: 'bonus', unit: 5 },
+  { id: '22', group: 'IV. Điểm thưởng khích lệ', title: '22. Đạt điểm kiểm tra tốt 9.5 - 10 (+10đ/điểm)', max: 0, target: 0, type: 'bonus', unit: 10 },
+  { id: '23', group: 'IV. Điểm thưởng khích lệ', title: '23. Được bà/bố/mẹ khen giúp đỡ việc nhà (+5đ/lần)', max: 0, target: 0, type: 'bonus', unit: 5 },
+  { id: '9', group: 'IV. Điểm thưởng khích lệ', title: '9. Tự tìm hiểu điều mới lạ và kể lại (+5đ/lần)', max: 0, target: 0, type: 'bonus', unit: 5 },
+
+  { id: '3', group: 'V. Điểm trừ vi phạm', title: '3. Bị thầy cô nhắc nhở trên lớp (-5đ/lần)', max: 0, target: 0, type: 'penalty', unit: 5 },
+  { id: '24', group: 'V. Điểm trừ vi phạm', title: '24. Bị thầy cô phản ánh về gia đình (-10đ/lần)', max: 0, target: 0, type: 'penalty', unit: 10 },
+  { id: '25', group: 'V. Điểm trừ vi phạm', title: '25. Đi chơi không xin phép (-15đ/lần)', max: 0, target: 0, type: 'penalty', unit: 15 },
+  { id: '26', group: 'V. Điểm trừ vi phạm', title: '26. Đi chơi quá giờ (-10đ/lần)', max: 0, target: 0, type: 'penalty', unit: 10 },
+];
+
+const DAYS = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
+let selectedDay = 0;
+let isKidMode = false;
+
+let appState = {
+  childName: 'Con yêu (Lớp 6)',
+  coins: 120,
+  pin: '1234',
+  scriptUrl: DEFAULT_SCRIPT_URL,
+  logs: {}
+};
+
+function initLogs() {
+  DEFAULT_CRITERIA.forEach(c => {
+    if (!appState.logs[c.id]) {
+      appState.logs[c.id] = (c.type === 'daily' || c.type === 'weekly') ? [0,0,0,0,0,0,0] : [0];
+    }
+  });
+}
+
+function loadLocal() {
+  const saved = localStorage.getItem('littlestar_pwa_v1');
+  if (saved) {
+    try {
+      appState = Object.assign(appState, JSON.parse(saved));
+    } catch (e) {}
+  }
+  if (!appState.scriptUrl) appState.scriptUrl = DEFAULT_SCRIPT_URL;
+  initLogs();
+}
+
+async function saveAndSync() {
+  localStorage.setItem('littlestar_pwa_v1', JSON.stringify(appState));
+  if (!appState.scriptUrl) return;
+  const dot = document.getElementById('syncDot');
+  dot.style.background = '#FDE047';
+  try {
+    await fetch(appState.scriptUrl, {
+      method: 'POST',
+      body: JSON.stringify(appState)
+    });
+    dot.style.background = '#4ADE80';
+  } catch (e) {
+    dot.style.background = '#F87171';
+  }
+}
+
+async function pullFromCloud() {
+  if (!appState.scriptUrl) return;
+  const dot = document.getElementById('syncDot');
+  dot.style.background = '#FDE047';
+  try {
+    const res = await fetch(appState.scriptUrl);
+    const data = await res.json();
+    if (data && data.logs) {
+      appState = Object.assign(appState, data);
+      initLogs();
+      localStorage.setItem('littlestar_pwa_v1', JSON.stringify(appState));
+      render();
+    }
+    dot.style.background = '#4ADE80';
+  } catch (e) {
+    dot.style.background = '#F87171';
+  }
+}
+
+function calculateScore() {
+  let raw = 0;
+  let maxPossible = 0;
+  let zeroedByGroup = {};
+  let warnings = [];
+
+  DEFAULT_CRITERIA.forEach(c => {
+    const logs = appState.logs[c.id] || [];
+    if (c.type === 'daily' || c.type === 'weekly') {
+      maxPossible += c.max;
+      const pass = logs.filter(v => v === 1).length;
+      const fail = logs.filter(v => v === -1).length;
+      const std = c.target > 0 ? c.max / c.target : c.unit;
+      let earned = Math.min(pass, c.target) * std;
+
+      if (fail >= 5) {
+        earned = 0;
+        zeroedByGroup[c.group] = (zeroedByGroup[c.group] || 0) + 1;
+        warnings.push(`Mất trắng điểm mục "${c.title}" do mắc ${fail} lỗi.`);
+      } else if (fail >= 3) {
+        const fine = 2 * std;
+        earned = Math.max(0, earned - fine);
+        if (earned === 0) zeroedByGroup[c.group] = (zeroedByGroup[c.group] || 0) + 1;
+        warnings.push(`Mục "${c.title}" mắc ${fail} lỗi -> Phạt thêm -${fine.toFixed(1)}đ.`);
+      } else if (fail === 2) {
+        warnings.push(`Cảnh báo: "${c.title}" đã 2 lỗi (thêm 1 lỗi sẽ trừ gấp đôi điểm chuẩn).`);
+      }
+      raw += earned;
+    } else if (c.type === 'bonus') {
+      raw += (logs[0] || 0) * c.unit;
+    } else if (c.type === 'penalty') {
+      raw -= (logs[0] || 0) * c.unit;
+    }
+  });
+
+  let maxZero = 0;
+  let worstGroup = '';
+  Object.entries(zeroedByGroup).forEach(([g, cnt]) => {
+    if (cnt > maxZero) { maxZero = cnt; worstGroup = g; }
+  });
+
+  const group20 = maxZero >= 3;
+  let groupPenalty = 0;
+  if (group20 && raw > 0) {
+    groupPenalty = raw * 0.20;
+    warnings.unshift(`PHẠT NHÓM (-20%): "${worstGroup}" có ${maxZero} mục bị trừ hết điểm!`);
+  }
+
+  return {
+    finalScore: Math.max(0, raw - groupPenalty),
+    maxPossible,
+    group20,
+    warnings
+  };
+}
+
+function toggleDay(id, val) {
+  const cur = appState.logs[id][selectedDay];
+  appState.logs[id][selectedDay] = (cur === val) ? 0 : val;
+  render();
+  saveAndSync();
+}
+
+function changeEvent(id, delta) {
+  const cur = appState.logs[id][0] || 0;
+  appState.logs[id][0] = Math.max(0, Math.min(20, cur + delta));
+  render();
+  saveAndSync();
+}
+
+function render() {
+  const res = calculateScore();
+  document.body.className = isKidMode ? 'kid-mode' : '';
+  document.getElementById('headerTitle').textContent = isKidMode ? 'LittleStar - Góc Của Con ⭐' : 'LittleStar - Phụ Huynh';
+  document.getElementById('headerSub').textContent = `${appState.childName} • Ví: ${appState.coins} Xu`;
+  document.getElementById('btnMode').textContent = isKidMode ? 'Bố/Mẹ' : 'Chế độ Con';
+  document.getElementById('btnSettings').style.display = isKidMode ? 'none' : 'inline-block';
+
+  document.getElementById('parentView').style.display = isKidMode ? 'none' : 'block';
+  document.getElementById('kidView').style.display = isKidMode ? 'block' : 'none';
+
+  if (isKidMode) {
+    renderKidView(res);
+  } else {
+    renderParentView(res);
+  }
+}
+
+function renderParentView(res) {
+  document.getElementById('totalScoreDisplay').textContent = `${res.finalScore.toFixed(1)} / ${res.maxPossible.toFixed(0)} đ`;
+  const wBox = document.getElementById('warningBox');
+  if (res.warnings.length > 0) {
+    wBox.style.display = 'block';
+    wBox.className = res.group20 ? 'warning-banner severe' : 'warning-banner';
+    wBox.textContent = res.warnings[0];
+  } else {
+    wBox.style.display = 'none';
+  }
+
+  const dayTabs = document.getElementById('dayTabs');
+  dayTabs.innerHTML = DAYS.map((d, i) => `
+    <button class="day-btn ${i === selectedDay ? 'active' : ''}" onclick="selectedDay=${i};render();">${d}</button>
+  `).join('');
+
+  const list = document.getElementById('criteriaList');
+  let html = '';
+  let lastGroup = '';
+  DEFAULT_CRITERIA.forEach(c => {
+    if (c.group !== lastGroup) {
+      html += `<div class="group-title">${c.group}</div>`;
+      lastGroup = c.group;
+    }
+    const logs = appState.logs[c.id];
+    if (c.type === 'daily' || c.type === 'weekly') {
+      const st = logs[selectedDay];
+      const pass = logs.filter(v => v === 1).length;
+      const fail = logs.filter(v => v === -1).length;
+      html += `
+        <div class="card">
+          <div class="crit-info">
+            <div class="crit-title">${c.title}</div>
+            <div class="crit-meta ${fail >= 3 ? 'danger' : ''}">
+              Chuẩn: ${c.max}đ • Đạt: ${pass}/${c.target} • Lỗi tuần: ${fail}
+            </div>
+          </div>
+          <div class="action-group">
+            <button class="icon-btn pass ${st === 1 ? 'active' : ''}" onclick="toggleDay('${c.id}', 1)">✓</button>
+            <button class="icon-btn fail ${st === -1 ? 'active' : ''}" onclick="toggleDay('${c.id}', -1)">✕</button>
+          </div>
+        </div>`;
+    } else {
+      const cnt = logs[0] || 0;
+      html += `
+        <div class="card">
+          <div class="crit-info"><div class="crit-title">${c.title}</div></div>
+          <div class="action-group">
+            <button class="icon-btn" onclick="changeEvent('${c.id}', -1)">−</button>
+            <span class="counter-pill">${cnt} lần</span>
+            <button class="icon-btn pass active" onclick="changeEvent('${c.id}', 1)">+</button>
+          </div>
+        </div>`;
+    }
+  });
+  list.innerHTML = html;
+}
+
+function renderKidView(res) {
+  const pct = Math.min(100, Math.round((res.finalScore / res.maxPossible) * 100));
+  const rewards = [
+    { name: '🍕 Chọn món ăn yêu thích cuối tuần', cost: 100 },
+    { name: '🎢 Đi công viên / Khu vui chơi', cost: 200 },
+    { name: '🧩 Bộ đồ chơi / Sách truyện mới', cost: 350 }
+  ];
+  document.getElementById('kidView').innerHTML = `
+    <div class="kid-hero">
+      <div style="font-size:46px;">🌟</div>
+      <h2 style="margin:8px 0 4px;">Chào ${appState.childName}!</h2>
+      <div style="font-size:18px;font-weight:700;color:#E65100;">Ví hiện tại: ${appState.coins} Xu</div>
+      <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+      <div style="font-size:13px;font-weight:600;color:#374151;">
+        Điểm rèn luyện tuần này: ${res.finalScore.toFixed(1)} / ${res.maxPossible.toFixed(0)} điểm (${pct}%)
+      </div>
+    </div>
+    <div class="group-title" style="color:#B45309;">🎁 Quà con có thể đổi (Xem trước)</div>
+    ${rewards.map(r => {
+      const ok = appState.coins >= r.cost;
+      return `
+        <div class="card">
+          <div class="crit-info">
+            <div class="crit-title">${r.name}</div>
+            <div class="crit-meta">Cần ${r.cost} Xu</div>
+          </div>
+          <span class="badge ${ok ? 'ready' : ''}">${ok ? 'Đủ Xu đổi!' : 'Thiếu ' + (r.cost - appState.coins) + ' Xu'}</span>
+        </div>`;
+    }).join('')}
+  `;
+}
+
+function toggleMode() {
+  if (!isKidMode) {
+    isKidMode = true;
+    render();
+    return;
+  }
+  showModal(`
+    <h3>Mở khóa Chế độ Phụ huynh</h3>
+    <input type="password" id="pinInput" inputmode="numeric" maxlength="4" placeholder="Nhập mã PIN (Mặc định: 1234)" />
+    <div class="modal-footer">
+      <button class="btn-ghost" style="color:#374151;background:#F3F4F6;" onclick="closeModal()">Hủy</button>
+      <button class="btn-primary" onclick="verifyPin()">Xác nhận</button>
+    </div>
+  `);
+}
+
+function verifyPin() {
+  const val = document.getElementById('pinInput').value;
+  if (val === appState.pin) {
+    closeModal();
+    isKidMode = false;
+    render();
+  } else {
+    alert('Sai mã PIN! Mã mặc định là 1234.');
+  }
+}
+
+function openSettings() {
+  showModal(`
+    <h3>Cài đặt Hồ sơ</h3>
+    <label style="font-size:12px;font-weight:600;">Tên của con:</label>
+    <input type="text" id="cfgName" value="${appState.childName}" />
+    <label style="font-size:12px;font-weight:600;">Mã PIN Phụ huynh (4 số):</label>
+    <input type="text" id="cfgPin" maxlength="4" value="${appState.pin}" />
+    <label style="font-size:12px;font-weight:600;">Link Google Apps Script:</label>
+    <input type="text" id="cfgUrl" value="${appState.scriptUrl}" />
+    <div class="modal-footer">
+      <button class="btn-ghost" style="color:#374151;background:#F3F4F6;" onclick="closeModal()">Đóng</button>
+      <button class="btn-primary" onclick="saveSettings()">Lưu cài đặt</button>
+    </div>
+  `);
+}
+
+function saveSettings() {
+  appState.childName = document.getElementById('cfgName').value.trim() || 'Con yêu (Lớp 6)';
+  appState.pin = document.getElementById('cfgPin').value.trim() || '1234';
+  appState.scriptUrl = document.getElementById('cfgUrl').value.trim() || DEFAULT_SCRIPT_URL;
+  closeModal();
+  render();
+  saveAndSync();
+}
+
+function closeWeek() {
+  const res = calculateScore();
+  let bonus = res.finalScore >= res.maxPossible * 0.9 ? 30 : 0;
+  let earned = Math.round(res.finalScore) + bonus;
+  showModal(`
+    <h3>Chốt kết quả tuần</h3>
+    <p style="font-size:13.5px;line-height:1.5;">
+      Tổng điểm đạt: <b>${res.finalScore.toFixed(1)} / ${res.maxPossible.toFixed(0)} đ</b><br/>
+      Quy đổi thưởng: <b>+${earned} Xu</b> ${bonus > 0 ? '(đã gồm +30 Xu thưởng xuất sắc)' : ''}<br/><br/>
+      Xác nhận cộng Xu và bắt đầu tuần mới?
+    </p>
+    <div class="modal-footer">
+      <button class="btn-ghost" style="color:#374151;background:#F3F4F6;" onclick="closeModal()">Xem lại</button>
+      <button class="btn-primary" onclick="confirmCloseWeek(${earned})">Chốt tuần & Cộng Xu</button>
+    </div>
+  `);
+}
+
+function confirmCloseWeek(earned) {
+  appState.coins += earned;
+  appState.logs = {};
+  initLogs();
+  closeModal();
+  render();
+  saveAndSync();
+}
+
+function showModal(html) {
+  document.getElementById('modalContent').innerHTML = html;
+  document.getElementById('modalBackdrop').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('modalBackdrop').classList.remove('open');
+}
+
+loadLocal();
+render();
+pullFromCloud();
+</script>
+</body>
+</html>
