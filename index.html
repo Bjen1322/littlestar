@@ -177,17 +177,17 @@
       background: #F59E0B;
     }
 
-    /* Kid Sub-navigation (Nhiệm vụ vs Khu vườn) */
+    /* Kid Sub-navigation */
     .kid-nav {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
-      margin: 12px 12px 4px;
+      padding: 0 12px;
       max-width: 680px;
     }
     .kid-nav-btn {
-      padding: 10px;
-      border-radius: 12px;
+      padding: 11px;
+      border-radius: 14px;
       border: 1.5px solid #FCD34D;
       background: #fff;
       font-weight: 700;
@@ -199,50 +199,117 @@
       background: var(--kid-accent);
       color: #fff;
       border-color: var(--kid-accent);
-      box-shadow: 0 2px 6px rgba(255,152,0,0.25);
+      box-shadow: 0 3px 8px rgba(255,152,0,0.28);
     }
 
-    /* Garden Card */
+    /* Garden Stage (Phiên bản phóng lớn & sinh động) */
     .garden-stage {
-      background: linear-gradient(180deg, #E0F7FA 0%, #E8F5E9 72%, #D7CCC8 100%);
-      border-radius: 22px;
-      padding: 20px 16px;
+      background: linear-gradient(180deg, #B3E5FC 0%, #E1F5FE 45%, #C8E6C9 76%, #A5D6A7 100%);
+      border-radius: 26px;
+      padding: 20px 18px 24px;
       text-align: center;
       position: relative;
       overflow: hidden;
-      border: 2px solid #B2EBF2;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
-      margin-bottom: 14px;
+      border: 2px solid #81D4FA;
+      box-shadow: 0 8px 22px rgba(2,136,209,0.12);
+      margin-bottom: 16px;
     }
     .garden-sky {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 12px;
+      font-size: 12.5px;
       font-weight: 700;
-      color: #00695C;
-      margin-bottom: 10px;
+      color: #01579B;
+      background: rgba(255,255,255,0.65);
+      padding: 7px 12px;
+      border-radius: 99px;
+      margin-bottom: 14px;
+    }
+    .garden-arena {
+      position: relative;
+      height: 210px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      margin: 6px 0 12px;
+    }
+    .sun-badge {
+      position: absolute;
+      top: 2px;
+      right: 14px;
+      font-size: 40px;
+      filter: drop-shadow(0 2px 8px rgba(255,193,7,0.5));
+    }
+    .deco-left {
+      position: absolute;
+      bottom: 24px;
+      left: 18px;
+      font-size: 30px;
+    }
+    .deco-right {
+      position: absolute;
+      bottom: 24px;
+      right: 18px;
+      font-size: 30px;
+    }
+    .deco-air {
+      position: absolute;
+      top: 28px;
+      left: 24px;
+      font-size: 26px;
     }
     .tree-avatar {
-      font-size: 84px;
-      line-height: 1.1;
-      margin: 12px 0;
+      font-size: 136px;
+      line-height: 1;
+      z-index: 2;
       display: inline-block;
-      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      filter: drop-shadow(0 8px 12px rgba(0,0,0,0.14));
+      transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
       user-select: none;
+      margin-bottom: 6px;
     }
-    .tree-avatar.bounce { transform: scale(1.22) rotate(4deg); }
+    .tree-avatar.bounce { transform: scale(1.18) translateY(-8px); }
+    .soil-mound {
+      width: 150px;
+      height: 22px;
+      background: radial-gradient(ellipse at center, #795548 0%, #5D4037 100%);
+      border-radius: 50%;
+      margin-top: -10px;
+      z-index: 1;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    }
+    .water-drop-anim {
+      position: absolute;
+      top: 10px;
+      font-size: 34px;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 5;
+    }
+    .water-drop-anim.pour {
+      animation: dropFall 0.55s ease-in forwards;
+    }
+    @keyframes dropFall {
+      0% { opacity: 1; transform: translateY(0) scale(1.1); }
+      80% { opacity: 1; transform: translateY(90px) scale(1); }
+      100% { opacity: 0; transform: translateY(115px) scale(0.6); }
+    }
+
     .water-btn {
-      background: linear-gradient(135deg, #0288D1, #26C6DA);
+      background: linear-gradient(135deg, #0288D1, #00ACC1);
       color: #fff;
       border: none;
-      padding: 12px 22px;
+      padding: 14px 26px;
       border-radius: 99px;
-      font-size: 14.5px;
+      font-size: 15.5px;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(2,136,209,0.3);
-      margin-top: 10px;
+      box-shadow: 0 5px 14px rgba(2,136,209,0.35);
+      margin-top: 12px;
+      width: 100%;
+      max-width: 320px;
     }
     .water-btn:disabled {
       background: #9CA3AF;
@@ -253,13 +320,24 @@
       background: linear-gradient(135deg, #F59E0B, #EA580C);
       color: #fff;
       border: none;
-      padding: 12px 22px;
+      padding: 14px 26px;
       border-radius: 99px;
-      font-size: 14.5px;
+      font-size: 15.5px;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(234,88,12,0.35);
-      margin-top: 10px;
+      box-shadow: 0 5px 14px rgba(234,88,12,0.38);
+      margin-top: 12px;
+      width: 100%;
+      max-width: 320px;
+    }
+    .orchard-shelf {
+      margin-top: 14px;
+      background: rgba(255,255,255,0.72);
+      border-radius: 14px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #1B5E20;
     }
 
     .container { padding: 12px; max-width: 680px; margin: 0 auto; }
@@ -332,7 +410,7 @@
     .kid-check-btn.locked-fail { background: #FEE2E2; border-color: var(--danger); color: #991B1B; }
 
     .counter-pill { min-width: 48px; text-align: center; font-size: 13px; font-weight: 700; }
-    .progress-track { width: 100%; height: 10px; background: rgba(0,0,0,0.08); border-radius: 99px; overflow: hidden; margin-top: 8px; }
+    .progress-track { width: 100%; height: 12px; background: rgba(255,255,255,0.75); border-radius: 99px; overflow: hidden; margin-top: 6px; }
     .progress-fill { height: 100%; background: var(--kid-accent); transition: width 0.3s ease; }
 
     .badge { padding: 5px 10px; border-radius: 99px; font-size: 11.5px; font-weight: 700; background: #F3F4F6; color: #4B5563; }
@@ -493,16 +571,16 @@ const DEFAULT_CRITERIA = [
 ];
 
 const TREE_TYPES = [
-  { name: 'Cây Táo Thần Kỳ', stages: ['🌱', '🌿', '🌳', '🌸', '🍎'] },
-  { name: 'Cây Dâu Tây Ngọt Ngào', stages: ['🌱', '🌿', '🍀', '🌼', '🍓'] },
-  { name: 'Cây Cam Vàng Rực Rỡ', stages: ['🌱', '🌿', '🌳', '💮', '🍊'] },
-  { name: 'Cây Hoa Hướng Dương', stages: ['🌱', '🌿', '🪴', ' buds', '🌻'] }
+  { name: 'Cây Táo Thần Kỳ', stages: ['🌱', '🌿', '🌳', '🌸', '🍎'], fruit: '🍎' },
+  { name: 'Cây Dâu Tây Ngọt Ngào', stages: ['🌱', '🌿', '🍀', '🌼', '🍓'], fruit: '🍓' },
+  { name: 'Cây Cam Vàng Rực Rỡ', stages: ['🌱', '🌿', '🌳', '💮', '🍊'], fruit: '🍊' },
+  { name: 'Cây Hoa Hướng Dương', stages: ['🌱', '🌿', '🪴', '🌷', '🌻'], fruit: '🌻' }
 ];
 
 const DAYS = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
 let selectedDay = (new Date().getDay() + 6) % 7;
 let isKidMode = false;
-let kidTab = 'tasks'; // 'tasks' | 'garden'
+let kidTab = 'tasks';
 
 let familyData = {
   familyId: '',
@@ -526,9 +604,10 @@ function createChildProfile(name) {
     logs: createEmptyLogs(),
     garden: {
       treeTypeIdx: 0,
-      waterUsed: 0,     // Tổng giọt nước đã tưới cho cây hiện tại (đạt 50 là thu hoạch)
-      waterSpentTotal: 0, // Tổng giọt nước đã dùng từ trước đến nay
-      harvests: 0       // Số cây đã thu hoạch thành công
+      waterUsed: 0,
+      waterSpentThisWeek: 0,
+      harvests: 0,
+      harvestedList: []
     }
   };
 }
@@ -542,8 +621,9 @@ function getActiveChild() {
   }
   const child = familyData.children[familyData.activeChildIdx];
   if (!child.garden) {
-    child.garden = { treeTypeIdx: 0, waterUsed: 0, waterSpentTotal: 0, harvests: 0 };
+    child.garden = { treeTypeIdx: 0, waterUsed: 0, waterSpentThisWeek: 0, harvests: 0, harvestedList: [] };
   }
+  if (!child.garden.harvestedList) child.garden.harvestedList = [];
   DEFAULT_CRITERIA.forEach(c => {
     if (!child.logs[c.id]) {
       child.logs[c.id] = (c.type === 'daily' || c.type === 'weekly') ? [0,0,0,0,0,0,0] : [0];
@@ -552,7 +632,6 @@ function getActiveChild() {
   return child;
 }
 
-// Tính số giọt nước khả dụng của bé = Tổng số lần được duyệt đạt trong tuần + điểm thưởng - số nước đã tưới tuần này
 function getAvailableWater(child) {
   let approvedCount = 0;
   DEFAULT_CRITERIA.forEach(c => {
@@ -787,10 +866,18 @@ function waterPlant() {
   child.garden.waterSpentThisWeek = (child.garden.waterSpentThisWeek || 0) + 1;
   render();
 
+  const dropEl = document.getElementById('waterDropAnim');
   const treeEl = document.getElementById('treeAvatar');
+  if (dropEl) {
+    dropEl.classList.remove('pour');
+    void dropEl.offsetWidth;
+    dropEl.classList.add('pour');
+  }
   if (treeEl) {
-    treeEl.classList.add('bounce');
-    setTimeout(() => treeEl.classList.remove('bounce'), 300);
+    setTimeout(() => {
+      treeEl.classList.add('bounce');
+      setTimeout(() => treeEl.classList.remove('bounce'), 320);
+    }, 280);
   }
   saveAndSync();
 }
@@ -798,11 +885,14 @@ function waterPlant() {
 function harvestPlant() {
   const child = getActiveChild();
   if ((child.garden.waterUsed || 0) < 40) return;
+  const curTree = TREE_TYPES[child.garden.treeTypeIdx || 0];
   child.coins += 20;
   child.garden.harvests = (child.garden.harvests || 0) + 1;
+  if (!child.garden.harvestedList) child.garden.harvestedList = [];
+  child.garden.harvestedList.push(curTree.fruit);
   child.garden.waterUsed = 0;
   child.garden.treeTypeIdx = ((child.garden.treeTypeIdx || 0) + 1) % TREE_TYPES.length;
-  alert(`🎉 Chúc mừng ${child.name} đã thu hoạch cây trưởng thành và nhận thưởng +20 Xu!`);
+  alert(`🎉 Chúc mừng ${child.name} đã thu hoạch ${curTree.name} và nhận thưởng +20 Xu!`);
   render();
   saveAndSync();
 }
@@ -841,7 +931,6 @@ function render() {
   document.getElementById('btnSettings').style.display = isKidMode ? 'none' : 'inline-block';
   document.getElementById('btnCloseWeek').style.display = isKidMode ? 'none' : 'inline-block';
 
-  // Thanh chọn hồ sơ các con
   const childBar = document.getElementById('childBar');
   let childHtml = familyData.children.map((ch, idx) => `
     <button class="child-pill ${idx === familyData.activeChildIdx ? 'active' : ''}" onclick="selectChild(${idx})">
@@ -853,7 +942,6 @@ function render() {
   }
   childBar.innerHTML = childHtml;
 
-  // Thanh chuyển tab Nhiệm vụ / Khu vườn trong Chế độ Con
   const kidNav = document.getElementById('kidNav');
   const summaryBox = document.getElementById('summaryBox');
   if (isKidMode) {
@@ -923,19 +1011,41 @@ function renderGardenView(child, res, availWater) {
   const g = child.garden;
   const tree = TREE_TYPES[g.treeTypeIdx || 0];
   const waterUsed = g.waterUsed || 0;
-  const goalWater = 40; // 40 lần việc tốt được duyệt sẽ thu hoạch 1 cây
+  const goalWater = 40;
 
   let stageIdx = 0;
   let stageName = 'Cấp 1: Hạt mầm mới nhú';
-  if (waterUsed >= 40) { stageIdx = 4; stageName = 'Cấp 5: Cây sai trĩu quả (Sẵn sàng thu hoạch!)'; }
-  else if (waterUsed >= 28) { stageIdx = 3; stageName = 'Cấp 4: Cây đang đơm hoa'; }
-  else if (waterUsed >= 16) { stageIdx = 2; stageName = 'Cấp 3: Cây trưởng thành xanh tốt'; }
-  else if (waterUsed >= 6) { stageIdx = 1; stageName = 'Cấp 2: Cây non vươn lá'; }
+  let decoLeft = '🌼';
+  let decoRight = '🍀';
+  let decoAir = '🦋';
+
+  if (waterUsed >= 40) {
+    stageIdx = 4;
+    stageName = 'Cấp 5: Cây sai trĩu quả (Sẵn sàng thu hoạch!)';
+    decoLeft = '🌻'; decoRight = '🍄'; decoAir = '🐦';
+  } else if (waterUsed >= 28) {
+    stageIdx = 3;
+    stageName = 'Cấp 4: Cây đang đơm hoa rực rỡ';
+    decoLeft = '🌷'; decoRight = '🌺'; decoAir = '🐝';
+  } else if (waterUsed >= 16) {
+    stageIdx = 2;
+    stageName = 'Cấp 3: Cây trưởng thành xanh tốt';
+    decoLeft = '🌿'; decoRight = '🌸'; decoAir = '🦋';
+  } else if (waterUsed >= 6) {
+    stageIdx = 1;
+    stageName = 'Cấp 2: Cây non vươn lá';
+    decoLeft = '🌱'; decoRight = '🌼'; decoAir = '🐞';
+  }
 
   const pct = Math.min(100, Math.round((waterUsed / goalWater) * 100));
   const weather = res.totalFails > 0
     ? `⛅ Trời hơi âm u (${res.totalFails} lỗi tuần này)`
     : `☀️ Trời nắng đẹp rực rỡ`;
+  const sunIcon = res.totalFails > 0 ? '⛅' : '☀️';
+
+  const shelfItems = (g.harvestedList && g.harvestedList.length > 0)
+    ? g.harvestedList.join(' ')
+    : 'Chưa có quả nào (Thu hoạch cây đầu tiên để nhận +20 Xu!)';
 
   const rewards = [
     { name: '🍕 Chọn món ăn yêu thích cuối tuần', cost: 100 },
@@ -947,15 +1057,23 @@ function renderGardenView(child, res, availWater) {
     <div class="garden-stage">
       <div class="garden-sky">
         <span>${weather}</span>
-        <span>🏆 Đã thu hoạch: ${g.harvests || 0} cây</span>
+        <span>🏆 Thu hoạch: ${g.harvests || 0} cây</span>
       </div>
-      <div style="font-size:15px;font-weight:700;color:#004D40;">${tree.name}</div>
-      <div style="font-size:12px;color:#00695C;margin-top:2px;">${stageName}</div>
+      <div style="font-size:17px;font-weight:700;color:#004D40;">${tree.name}</div>
+      <div style="font-size:12.5px;font-weight:600;color:#00695C;margin-top:2px;">${stageName}</div>
 
-      <div class="tree-avatar" id="treeAvatar">${tree.stages[stageIdx]}</div>
+      <div class="garden-arena">
+        <div class="sun-badge">${sunIcon}</div>
+        <div class="deco-air">${decoAir}</div>
+        <div class="water-drop-anim" id="waterDropAnim">💧</div>
+        <div class="deco-left">${decoLeft}</div>
+        <div class="tree-avatar" id="treeAvatar">${tree.stages[stageIdx]}</div>
+        <div class="deco-right">${decoRight}</div>
+        <div class="soil-mound"></div>
+      </div>
 
-      <div style="max-width:300px;margin:0 auto;">
-        <div style="display:flex;justify-content:space-between;font-size:11.5px;font-weight:700;color:#004D40;">
+      <div style="max-width:320px;margin:0 auto;">
+        <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:#004D40;">
           <span>Độ lớn của cây</span>
           <span>${waterUsed} / ${goalWater} 💧</span>
         </div>
@@ -963,13 +1081,17 @@ function renderGardenView(child, res, availWater) {
       </div>
 
       ${waterUsed >= goalWater
-        ? `<button class="harvest-btn" onclick="harvestPlant()">🍎 Thu hoạch ngay (+20 Xu)</button>`
+        ? `<button class="harvest-btn" onclick="harvestPlant()">${tree.fruit} Thu hoạch ngay (+20 Xu)</button>`
         : `<button class="water-btn" ${availWater <= 0 ? 'disabled' : ''} onclick="waterPlant()">
             💧 Tưới cây ngay (Còn ${availWater} giọt nước)
            </button>`
       }
 
-      <div style="font-size:11.5px;color:#374151;margin-top:12px;line-height:1.4;">
+      <div class="orchard-shelf">
+        🧺 Giỏ thành quả: <span style="font-size:16px;">${shelfItems}</span>
+      </div>
+
+      <div style="font-size:11.5px;color:#374151;margin-top:10px;line-height:1.4;">
         Mỗi việc tốt con hoàn thành và được bố/mẹ duyệt sẽ tạo ra <b>+1 Giọt Nước 💧</b> để nuôi cây lớn!
       </div>
     </div>
