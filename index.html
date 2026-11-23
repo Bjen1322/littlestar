@@ -22,7 +22,6 @@
       --text: #1F2937;
       --muted: #6B7280;
       --success: #16A34A;
-      --pending: #D97706;
       --danger: #DC2626;
       --border: #E5E7EB;
     }
@@ -43,43 +42,79 @@
       z-index: 50;
       background: var(--primary);
       color: #fff;
-      padding: 14px 16px;
+      padding: 12px 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
     body.kid-mode .app-bar { background: var(--kid-accent); }
-    .app-title { font-size: 17px; font-weight: 700; margin: 0; }
-    .app-sub { font-size: 12px; opacity: 0.92; margin-top: 2px; }
-    .header-actions { display: flex; gap: 8px; align-items: center; }
+    .app-title { font-size: 16px; font-weight: 700; margin: 0; display: flex; align-items: center; gap: 6px; }
+    .fam-tag {
+      font-size: 10.5px;
+      background: rgba(0,0,0,0.2);
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    .app-sub { font-size: 12px; opacity: 0.92; margin-top: 3px; }
+    .header-actions { display: flex; gap: 6px; align-items: center; }
     .btn-ghost {
       background: rgba(255,255,255,0.22);
       border: none;
       color: #fff;
-      padding: 7px 11px;
+      padding: 7px 10px;
       border-radius: 10px;
       font-size: 12px;
       font-weight: 600;
       cursor: pointer;
     }
 
+    /* Child Switcher Bar */
+    .child-bar {
+      background: #E0F2F1;
+      padding: 8px 14px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      border-bottom: 1px solid #B2DFDB;
+    }
+    body.kid-mode .child-bar { background: #FFECB3; border-bottom-color: #FFE082; }
+    .child-pill {
+      padding: 6px 12px;
+      border-radius: 99px;
+      border: 1.5px solid transparent;
+      background: rgba(255,255,255,0.75);
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .child-pill.active {
+      background: #fff;
+      border-color: var(--primary);
+      color: var(--primary-dark);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    body.kid-mode .child-pill.active { border-color: var(--kid-accent); color: var(--kid-dark); }
+    .child-pill.add-btn {
+      background: transparent;
+      border: 1.5px dashed var(--primary-dark);
+      color: var(--primary-dark);
+    }
+
     .summary-box {
       background: #fff;
-      padding: 14px 16px;
+      padding: 12px 14px;
       border-bottom: 1px solid var(--border);
       position: sticky;
-      top: 62px;
+      top: 58px;
       z-index: 40;
     }
-    .score-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-    }
+    .score-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
     .score-label { font-size: 12px; color: var(--muted); }
-    .score-val { font-size: 21px; font-weight: 700; color: var(--primary-dark); }
+    .score-val { font-size: 20px; font-weight: 700; color: var(--primary-dark); }
     body.kid-mode .score-val { color: var(--kid-dark); }
     .btn-primary {
       background: var(--primary);
@@ -97,15 +132,14 @@
       background: #FEF3C7;
       color: #92400E;
       border: 1px solid #F59E0B;
-      padding: 9px 12px;
+      padding: 8px 12px;
       border-radius: 10px;
       font-weight: 700;
-      font-size: 13px;
+      font-size: 12.5px;
       cursor: pointer;
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 6px;
     }
     .warning-banner {
       margin-top: 10px;
@@ -117,20 +151,16 @@
       color: #92400E;
       border: 1px solid #FCD34D;
     }
-    .warning-banner.severe {
-      background: #FEE2E2;
-      color: #991B1B;
-      border-color: #FCA5A5;
-    }
+    .warning-banner.severe { background: #FEE2E2; color: #991B1B; border-color: #FCA5A5; }
 
     .day-tabs {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
       gap: 6px;
-      margin-top: 12px;
+      margin-top: 10px;
     }
     .day-btn {
-      padding: 8px 0;
+      padding: 7px 0;
       border-radius: 10px;
       border: 1px solid var(--border);
       background: #F9FAFB;
@@ -140,15 +170,8 @@
       cursor: pointer;
       position: relative;
     }
-    .day-btn.active {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-    }
-    body.kid-mode .day-btn.active {
-      background: var(--kid-accent);
-      border-color: var(--kid-accent);
-    }
+    .day-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+    body.kid-mode .day-btn.active { background: var(--kid-accent); border-color: var(--kid-accent); }
     .day-dot {
       position: absolute;
       top: 3px;
@@ -160,12 +183,7 @@
     }
 
     .container { padding: 12px; max-width: 680px; margin: 0 auto; }
-    .group-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--primary-dark);
-      margin: 16px 4px 8px;
-    }
+    .group-title { font-size: 14px; font-weight: 700; color: var(--primary-dark); margin: 16px 4px 8px; }
     body.kid-mode .group-title { color: #B45309; }
 
     .card {
@@ -216,21 +234,9 @@
       align-items: center;
       justify-content: center;
     }
-    .icon-btn.pass.active {
-      background: #DCFCE7;
-      border-color: var(--success);
-      color: var(--success);
-    }
-    .icon-btn.pending.active {
-      background: #FEF3C7;
-      border-color: #F59E0B;
-      color: #B45309;
-    }
-    .icon-btn.fail.active {
-      background: #FEE2E2;
-      border-color: var(--danger);
-      color: var(--danger);
-    }
+    .icon-btn.pass.active { background: #DCFCE7; border-color: var(--success); color: var(--success); }
+    .icon-btn.fail.active { background: #FEE2E2; border-color: var(--danger); color: var(--danger); }
+
     .kid-check-btn {
       padding: 8px 12px;
       border-radius: 10px;
@@ -241,52 +247,55 @@
       color: #4B5563;
       cursor: pointer;
     }
-    .kid-check-btn.checked {
-      background: #FEF3C7;
-      border-color: #F59E0B;
-      color: #B45309;
-    }
-    .kid-check-btn.locked-ok {
-      background: #DCFCE7;
-      border-color: var(--success);
-      color: #166534;
-    }
-    .kid-check-btn.locked-fail {
-      background: #FEE2E2;
-      border-color: var(--danger);
-      color: #991B1B;
-    }
+    .kid-check-btn.checked { background: #FEF3C7; border-color: #F59E0B; color: #B45309; }
+    .kid-check-btn.locked-ok { background: #DCFCE7; border-color: var(--success); color: #166534; }
+    .kid-check-btn.locked-fail { background: #FEE2E2; border-color: var(--danger); color: #991B1B; }
 
-    .counter-pill {
-      min-width: 48px;
-      text-align: center;
-      font-size: 13px;
-      font-weight: 700;
-    }
+    .counter-pill { min-width: 48px; text-align: center; font-size: 13px; font-weight: 700; }
+    .progress-track { width: 100%; height: 10px; background: #FEF3C7; border-radius: 99px; overflow: hidden; margin-top: 8px; }
+    .progress-fill { height: 100%; background: var(--kid-accent); transition: width 0.3s ease; }
 
-    .progress-track {
-      width: 100%;
-      height: 10px;
-      background: #FEF3C7;
-      border-radius: 99px;
-      overflow: hidden;
-      margin-top: 8px;
-    }
-    .progress-fill {
-      height: 100%;
-      background: var(--kid-accent);
-      transition: width 0.3s ease;
-    }
-
-    .badge {
-      padding: 5px 10px;
-      border-radius: 99px;
-      font-size: 11.5px;
-      font-weight: 700;
-      background: #F3F4F6;
-      color: #4B5563;
-    }
+    .badge { padding: 5px 10px; border-radius: 99px; font-size: 11.5px; font-weight: 700; background: #F3F4F6; color: #4B5563; }
     .badge.ready { background: #DCFCE7; color: #166534; }
+
+    /* Welcome / Family Login Screen */
+    .welcome-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: linear-gradient(160deg, #E0F2F1 0%, #FFF9E6 100%);
+    }
+    .welcome-card {
+      background: #fff;
+      width: 100%;
+      max-width: 420px;
+      border-radius: 22px;
+      padding: 24px 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+    .welcome-card h2 { margin: 8px 0 4px; font-size: 21px; color: var(--primary-dark); }
+    .welcome-card p { margin: 0 0 18px; font-size: 13px; color: var(--muted); line-height: 1.45; }
+    .field-label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 5px; color: var(--text); }
+    .text-input {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 11px;
+      font-size: 14px;
+      margin-bottom: 14px;
+      font-family: inherit;
+    }
+    .role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 6px; }
+    .role-btn {
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      font-weight: 700;
+      font-size: 13.5px;
+      cursor: pointer;
+    }
 
     .modal-backdrop {
       position: fixed;
@@ -299,78 +308,79 @@
       padding: 16px;
     }
     .modal-backdrop.open { display: flex; }
-    .modal-card {
-      background: #fff;
-      width: 100%;
-      max-width: 400px;
-      border-radius: 16px;
-      padding: 18px;
-    }
+    .modal-card { background: #fff; width: 100%; max-width: 400px; border-radius: 16px; padding: 18px; }
     .modal-card h3 { margin: 0 0 10px; font-size: 16px; }
-    .modal-card input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      font-size: 14px;
-      margin-bottom: 12px;
-      font-family: inherit;
-    }
     .modal-footer { display: flex; justify-content: flex-end; gap: 8px; }
-    .sync-dot {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #A7F3D0;
-      margin-right: 4px;
-    }
+    .sync-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #A7F3D0; margin-right: 4px; }
   </style>
 </head>
 <body>
 
-  <header class="app-bar">
-    <div>
-      <div class="app-title" id="headerTitle">LittleStar - Phụ Huynh Duyệt</div>
-      <div class="app-sub"><span class="sync-dot" id="syncDot"></span><span id="headerSub">Con yêu (Lớp 6) • Ví: 120 Xu</span></div>
-    </div>
-    <div class="header-actions">
-      <button class="btn-ghost" onclick="pullFromCloud()" title="Tải dữ liệu mới nhất">🔄</button>
-      <button class="btn-ghost" onclick="openSettings()" id="btnSettings" title="Cài đặt">⚙️</button>
-      <button class="btn-ghost" onclick="toggleMode()" id="btnMode">Chế độ Con</button>
-    </div>
-  </header>
+  <!-- Màn hình chọn / tạo Mã Gia Đình lần đầu -->
+  <div id="welcomeView" class="welcome-screen" style="display:none;">
+    <div class="welcome-card">
+      <div style="font-size:40px;">⭐</div>
+      <h2>Chào mừng đến LittleStar</h2>
+      <p>Nhập <b>Mã Gia Đình</b> bất kỳ (ví dụ: <code>NHAMINH2026</code>) để tạo không gian riêng cho nhà mình hoặc kết nối với dữ liệu đã có.</p>
+      
+      <label class="field-label">Mã Gia Đình (Viết liền, không dấu):</label>
+      <input type="text" id="loginFamId" class="text-input" placeholder="VD: NHAMINH2026" style="text-transform:uppercase;" />
+      
+      <label class="field-label">Tên bé đầu tiên (nếu tạo gia đình mới):</label>
+      <input type="text" id="loginChildName" class="text-input" placeholder="VD: Bé Minh (Lớp 6)" />
 
-  <div class="summary-box">
-    <div class="score-row">
-      <div>
-        <div class="score-label" id="scoreLabel">Điểm đã duyệt tuần này</div>
-        <div class="score-val" id="totalScoreDisplay">0.0 / 300 đ</div>
+      <div class="role-grid">
+        <button class="role-btn" style="background:#FF9800;color:#fff;" onclick="enterFamily('kid')">👦 Vào Góc Của Con</button>
+        <button class="role-btn" style="background:#26A69A;color:#fff;" onclick="enterFamily('parent')">👨‍👩‍👧 Bố/Mẹ Duyệt</button>
       </div>
-      <button class="btn-primary" id="btnCloseWeek" onclick="closeWeek()">✓ Chốt tuần</button>
     </div>
-    <div id="kidProgressBar" style="display:none;">
-      <div class="progress-track"><div class="progress-fill" id="kidProgressFill" style="width:0%"></div></div>
-    </div>
-    <button class="btn-approve-all" id="btnApproveAll" style="display:none;" onclick="approveAllForDay()"></button>
-    <div id="warningBox" class="warning-banner" style="display:none;"></div>
-    <div class="day-tabs" id="dayTabs"></div>
   </div>
 
-  <div class="container" id="mainContainer"></div>
+  <!-- Giao diện chính của Ứng dụng -->
+  <div id="appShell" style="display:none;">
+    <header class="app-bar">
+      <div>
+        <div class="app-title">
+          <span id="headerTitle">LittleStar</span>
+          <span class="fam-tag" id="headerFamTag" onclick="switchFamilyPrompt()" title="Đổi Mã Gia Đình"></span>
+        </div>
+        <div class="app-sub"><span class="sync-dot" id="syncDot"></span><span id="headerSub">Ví: 120 Xu</span></div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-ghost" onclick="pullFromCloud()" title="Đồng bộ dữ liệu">🔄</button>
+        <button class="btn-ghost" onclick="openSettings()" id="btnSettings" title="Cài đặt">⚙️</button>
+        <button class="btn-ghost" onclick="toggleMode()" id="btnMode">Chế độ Con</button>
+      </div>
+    </header>
+
+    <!-- Thanh chuyển đổi nhiều con trong gia đình -->
+    <div class="child-bar" id="childBar"></div>
+
+    <div class="summary-box">
+      <div class="score-row">
+        <div>
+          <div class="score-label" id="scoreLabel">Điểm đã duyệt tuần này</div>
+          <div class="score-val" id="totalScoreDisplay">0.0 / 300 đ</div>
+        </div>
+        <button class="btn-primary" id="btnCloseWeek" onclick="closeWeek()">✓ Chốt tuần</button>
+      </div>
+      <div id="kidProgressBar" style="display:none;">
+        <div class="progress-track"><div class="progress-fill" id="kidProgressFill" style="width:0%"></div></div>
+      </div>
+      <button class="btn-approve-all" id="btnApproveAll" style="display:none;" onclick="approveAllForDay()"></button>
+      <div id="warningBox" class="warning-banner" style="display:none;"></div>
+      <div class="day-tabs" id="dayTabs"></div>
+    </div>
+
+    <div class="container" id="mainContainer"></div>
+  </div>
 
   <div class="modal-backdrop" id="modalBackdrop">
     <div class="modal-card" id="modalContent"></div>
   </div>
 
 <script>
-const DEFAULT_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyo6QiQgJdmD_IFSuxrxiMHLJmD-Zi-urYNjwLQae-0EdLRQ8t1UwHh6Zmr6pCFz1Xv/exec";
-
-// Trạng thái từng ngày:
-// 0 = Chưa làm
-// 2 = Con đã tick hoàn thành (Chờ bố mẹ duyệt)
-// 1 = Bố mẹ đã duyệt ĐẠT (Tính điểm)
-// -1 = Bố mẹ đánh dấu LỖI / VI PHẠM
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyo6QiQgJdmD_IFSuxrxiMHLJmD-Zi-urYNjwLQae-0EdLRQ8t1UwHh6Zmr6pCFz1Xv/exec";
 
 const DEFAULT_CRITERIA = [
   { id: '1', group: 'I. Học tập trên lớp & ở nhà', title: '1. Chuẩn bị đầy đủ sách vở, dụng cụ học tập', max: 10, target: 5, type: 'daily', unit: 2 },
@@ -406,45 +416,105 @@ const DEFAULT_CRITERIA = [
 ];
 
 const DAYS = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
-let selectedDay = (new Date().getDay() + 6) % 7; // Tự chọn đúng thứ hôm nay
+let selectedDay = (new Date().getDay() + 6) % 7;
 let isKidMode = false;
 
-let appState = {
-  childName: 'Con yêu (Lớp 6)',
-  coins: 120,
+let familyData = {
+  familyId: '',
   pin: '1234',
-  scriptUrl: DEFAULT_SCRIPT_URL,
-  logs: {}
+  activeChildIdx: 0,
+  children: []
 };
 
-function initLogs() {
+function createEmptyLogs() {
+  const logs = {};
   DEFAULT_CRITERIA.forEach(c => {
-    if (!appState.logs[c.id]) {
-      appState.logs[c.id] = (c.type === 'daily' || c.type === 'weekly') ? [0,0,0,0,0,0,0] : [0];
-    }
+    logs[c.id] = (c.type === 'daily' || c.type === 'weekly') ? [0,0,0,0,0,0,0] : [0];
   });
+  return logs;
 }
 
-function loadLocal() {
-  const saved = localStorage.getItem('littlestar_pwa_v2');
-  if (saved) {
-    try {
-      appState = Object.assign(appState, JSON.parse(saved));
-    } catch (e) {}
+function createChildProfile(name) {
+  return {
+    name: name || 'Con yêu',
+    coins: 100,
+    logs: createEmptyLogs()
+  };
+}
+
+function getActiveChild() {
+  if (!familyData.children || familyData.children.length === 0) {
+    familyData.children = [createChildProfile('Con yêu')];
   }
-  if (!appState.scriptUrl) appState.scriptUrl = DEFAULT_SCRIPT_URL;
-  initLogs();
+  if (familyData.activeChildIdx >= familyData.children.length) {
+    familyData.activeChildIdx = 0;
+  }
+  const child = familyData.children[familyData.activeChildIdx];
+  DEFAULT_CRITERIA.forEach(c => {
+    if (!child.logs[c.id]) {
+      child.logs[c.id] = (c.type === 'daily' || c.type === 'weekly') ? [0,0,0,0,0,0,0] : [0];
+    }
+  });
+  return child;
+}
+
+function bootApp() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlFam = urlParams.get('family');
+  const savedFamId = localStorage.getItem('littlestar_active_family');
+
+  const targetFam = (urlFam || savedFamId || '').toUpperCase().replace(/[^A-Z0-9_-]/g, '');
+  if (!targetFam) {
+    document.getElementById('welcomeView').style.display = 'flex';
+    document.getElementById('appShell').style.display = 'none';
+    return;
+  }
+
+  familyData.familyId = targetFam;
+  const cached = localStorage.getItem('littlestar_data_' + targetFam);
+  if (cached) {
+    try {
+      familyData = Object.assign(familyData, JSON.parse(cached));
+    } catch (e) {}
+  } else {
+    familyData.children = [createChildProfile('Bé Minh (Lớp 6)')];
+  }
+
+  document.getElementById('welcomeView').style.display = 'none';
+  document.getElementById('appShell').style.display = 'block';
+  render();
+  pullFromCloud();
+}
+
+async function enterFamily(role) {
+  const rawId = document.getElementById('loginFamId').value.trim().toUpperCase().replace(/[^A-Z0-9_-]/g, '');
+  const firstChild = document.getElementById('loginChildName').value.trim() || 'Con yêu';
+  if (!rawId) {
+    alert('Vui lòng nhập một Mã Gia Đình (ví dụ: NHAMINH2026)');
+    return;
+  }
+  localStorage.setItem('littlestar_active_family', rawId);
+  familyData = {
+    familyId: rawId,
+    pin: '1234',
+    activeChildIdx: 0,
+    children: [createChildProfile(firstChild)]
+  };
+  isKidMode = (role === 'kid');
+  document.getElementById('welcomeView').style.display = 'none';
+  document.getElementById('appShell').style.display = 'block';
+  render();
+  await pullFromCloud(true);
 }
 
 async function saveAndSync() {
-  localStorage.setItem('littlestar_pwa_v2', JSON.stringify(appState));
-  if (!appState.scriptUrl) return;
+  localStorage.setItem('littlestar_data_' + familyData.familyId, JSON.stringify(familyData));
   const dot = document.getElementById('syncDot');
   dot.style.background = '#FDE047';
   try {
-    await fetch(appState.scriptUrl, {
+    await fetch(SCRIPT_URL, {
       method: 'POST',
-      body: JSON.stringify(appState)
+      body: JSON.stringify(familyData)
     });
     dot.style.background = '#4ADE80';
   } catch (e) {
@@ -452,18 +522,22 @@ async function saveAndSync() {
   }
 }
 
-async function pullFromCloud() {
-  if (!appState.scriptUrl) return;
+async function pullFromCloud(isFirstJoin = false) {
+  if (!familyData.familyId) return;
   const dot = document.getElementById('syncDot');
   dot.style.background = '#FDE047';
   try {
-    const res = await fetch(appState.scriptUrl);
+    const res = await fetch(`${SCRIPT_URL}?family=${encodeURIComponent(familyData.familyId)}`);
     const data = await res.json();
-    if (data && data.logs) {
-      appState = Object.assign(appState, data);
-      initLogs();
-      localStorage.setItem('littlestar_pwa_v2', JSON.stringify(appState));
+    if (data && data.children && data.children.length > 0) {
+      const keepIdx = familyData.activeChildIdx;
+      familyData = Object.assign(familyData, data);
+      if (keepIdx < familyData.children.length) familyData.activeChildIdx = keepIdx;
+      localStorage.setItem('littlestar_data_' + familyData.familyId, JSON.stringify(familyData));
       render();
+    } else if (isFirstJoin) {
+      // Nếu là mã gia đình mới tinh trên server thì đẩy dữ liệu khởi tạo lên
+      await saveAndSync();
     }
     dot.style.background = '#4ADE80';
   } catch (e) {
@@ -471,7 +545,7 @@ async function pullFromCloud() {
   }
 }
 
-function calculateScore() {
+function calculateScore(child) {
   let raw = 0;
   let pendingPoints = 0;
   let maxPossible = 0;
@@ -479,7 +553,7 @@ function calculateScore() {
   let warnings = [];
 
   DEFAULT_CRITERIA.forEach(c => {
-    const logs = appState.logs[c.id] || [];
+    const logs = child.logs[c.id] || [];
     if (c.type === 'daily' || c.type === 'weekly') {
       maxPossible += c.max;
       const approved = logs.filter(v => v === 1).length;
@@ -533,29 +607,29 @@ function calculateScore() {
   };
 }
 
-// Con chỉ được tick báo cáo hoàn thành (2) hoặc bỏ tick (0) khi bố mẹ chưa khóa duyệt (1 hoặc -1)
 function kidToggleTask(id) {
-  const cur = appState.logs[id][selectedDay];
-  if (cur === 1 || cur === -1) return; // Đã được bố mẹ duyệt/chấm lỗi thì con không tự sửa được
-  appState.logs[id][selectedDay] = (cur === 2) ? 0 : 2;
+  const child = getActiveChild();
+  const cur = child.logs[id][selectedDay];
+  if (cur === 1 || cur === -1) return;
+  child.logs[id][selectedDay] = (cur === 2) ? 0 : 2;
   render();
   saveAndSync();
 }
 
-// Bố mẹ duyệt Đạt (1) hoặc Đánh dấu lỗi (-1)
 function parentReviewTask(id, decision) {
-  const cur = appState.logs[id][selectedDay];
-  appState.logs[id][selectedDay] = (cur === decision) ? 0 : decision;
+  const child = getActiveChild();
+  const cur = child.logs[id][selectedDay];
+  child.logs[id][selectedDay] = (cur === decision) ? 0 : decision;
   render();
   saveAndSync();
 }
 
-// Bố mẹ bấm duyệt nhanh toàn bộ các mục con đã tick trong ngày đang chọn
 function approveAllForDay() {
+  const child = getActiveChild();
   let count = 0;
   DEFAULT_CRITERIA.forEach(c => {
-    if ((c.type === 'daily' || c.type === 'weekly') && appState.logs[c.id][selectedDay] === 2) {
-      appState.logs[c.id][selectedDay] = 1;
+    if ((c.type === 'daily' || c.type === 'weekly') && child.logs[c.id][selectedDay] === 2) {
+      child.logs[c.id][selectedDay] = 1;
       count++;
     }
   });
@@ -566,31 +640,73 @@ function approveAllForDay() {
 }
 
 function changeEvent(id, delta) {
-  const cur = appState.logs[id][0] || 0;
-  appState.logs[id][0] = Math.max(0, Math.min(20, cur + delta));
+  const child = getActiveChild();
+  const cur = child.logs[id][0] || 0;
+  child.logs[id][0] = Math.max(0, Math.min(20, cur + delta));
   render();
   saveAndSync();
 }
 
-function countPendingOnDay(dayIdx) {
+function countPendingOnDay(child, dayIdx) {
   let cnt = 0;
   DEFAULT_CRITERIA.forEach(c => {
-    if ((c.type === 'daily' || c.type === 'weekly') && appState.logs[c.id][dayIdx] === 2) cnt++;
+    if ((c.type === 'daily' || c.type === 'weekly') && child.logs[c.id][dayIdx] === 2) cnt++;
   });
   return cnt;
 }
 
+function selectChild(idx) {
+  familyData.activeChildIdx = idx;
+  render();
+}
+
+function addNewChildModal() {
+  showModal(`
+    <h3>Thêm hồ sơ con mới</h3>
+    <input type="text" id="newChildName" class="text-input" placeholder="Nhập tên của con (VD: Bé An - Lớp 3)" />
+    <div class="modal-footer">
+      <button class="btn-ghost" style="color:#374151;background:#F3F4F6;" onclick="closeModal()">Hủy</button>
+      <button class="btn-primary" onclick="confirmAddChild()">Thêm bé</button>
+    </div>
+  `);
+}
+
+function confirmAddChild() {
+  const name = document.getElementById('newChildName').value.trim();
+  if (!name) return;
+  familyData.children.push(createChildProfile(name));
+  familyData.activeChildIdx = familyData.children.length - 1;
+  closeModal();
+  render();
+  saveAndSync();
+}
+
 function render() {
-  const res = calculateScore();
+  const child = getActiveChild();
+  const res = calculateScore(child);
+
   document.body.className = isKidMode ? 'kid-mode' : '';
-  document.getElementById('headerTitle').textContent = isKidMode ? 'LittleStar - Góc Của Con ⭐' : 'LittleStar - Phụ Huynh Duyệt';
-  document.getElementById('headerSub').textContent = `${appState.childName} • Ví: ${appState.coins} Xu`;
+  document.getElementById('headerTitle').textContent = isKidMode ? 'Góc Của Con ⭐' : 'LittleStar Duyệt';
+  document.getElementById('headerFamTag').textContent = `Mã: ${familyData.familyId}`;
+  document.getElementById('headerSub').textContent = `${child.name} • Ví: ${child.coins} Xu`;
   document.getElementById('btnMode').textContent = isKidMode ? 'Bố/Mẹ duyệt' : 'Chế độ Con';
   document.getElementById('btnSettings').style.display = isKidMode ? 'none' : 'inline-block';
   document.getElementById('btnCloseWeek').style.display = isKidMode ? 'none' : 'inline-block';
 
+  // Thanh chọn hồ sơ các con
+  const childBar = document.getElementById('childBar');
+  let childHtml = familyData.children.map((ch, idx) => `
+    <button class="child-pill ${idx === familyData.activeChildIdx ? 'active' : ''}" onclick="selectChild(${idx})">
+      ${idx === familyData.activeChildIdx ? '⭐ ' : ''}${ch.name}
+    </button>
+  `).join('');
+  if (!isKidMode) {
+    childHtml += `<button class="child-pill add-btn" onclick="addNewChildModal()">+ Thêm bé</button>`;
+  }
+  childBar.innerHTML = childHtml;
+
   document.getElementById('scoreLabel').textContent = isKidMode
-    ? `Điểm đã duyệt (+${res.pendingPoints.toFixed(1)}đ đang chờ duyệt)`
+    ? `Điểm đã duyệt (+${res.pendingPoints.toFixed(1)}đ chờ duyệt)`
     : `Điểm đã duyệt (Chờ duyệt: +${res.pendingPoints.toFixed(1)}đ)`;
   document.getElementById('totalScoreDisplay').textContent = `${res.finalScore.toFixed(1)} / ${res.maxPossible.toFixed(0)} đ`;
 
@@ -603,11 +719,11 @@ function render() {
     kidBar.style.display = 'none';
   }
 
-  const pendingToday = countPendingOnDay(selectedDay);
+  const pendingToday = countPendingOnDay(child, selectedDay);
   const btnApproveAll = document.getElementById('btnApproveAll');
   if (!isKidMode && pendingToday > 0) {
     btnApproveAll.style.display = 'flex';
-    btnApproveAll.textContent = `✓ Duyệt tất cả (${pendingToday} việc con đã báo cáo ngày ${DAYS[selectedDay]})`;
+    btnApproveAll.textContent = `✓ Duyệt tất cả (${pendingToday} việc con báo cáo ngày ${DAYS[selectedDay]})`;
   } else {
     btnApproveAll.style.display = 'none';
   }
@@ -623,17 +739,17 @@ function render() {
 
   const dayTabs = document.getElementById('dayTabs');
   dayTabs.innerHTML = DAYS.map((d, i) => {
-    const hasPending = countPendingOnDay(i) > 0;
+    const hasPending = countPendingOnDay(child, i) > 0;
     return `
       <button class="day-btn ${i === selectedDay ? 'active' : ''}" onclick="selectedDay=${i};render();">
         ${d}${hasPending ? '<span class="day-dot"></span>' : ''}
       </button>`;
   }).join('');
 
-  renderTaskList();
+  renderTaskList(child);
 }
 
-function renderTaskList() {
+function renderTaskList(child) {
   const container = document.getElementById('mainContainer');
   let html = '';
   let lastGroup = '';
@@ -644,7 +760,7 @@ function renderTaskList() {
       lastGroup = c.group;
     }
 
-    const logs = appState.logs[c.id];
+    const logs = child.logs[c.id];
     if (c.type === 'daily' || c.type === 'weekly') {
       const st = logs[selectedDay];
       const approvedCnt = logs.filter(v => v === 1).length;
@@ -699,7 +815,6 @@ function renderTaskList() {
           </div>`;
       }
     } else {
-      // Nhóm IV (Thưởng) & V (Phạt sự kiện)
       const cnt = logs[0] || 0;
       if (isKidMode) {
         html += `
@@ -727,16 +842,16 @@ function renderTaskList() {
       { name: '🎢 Đi công viên / Khu vui chơi', cost: 200 },
       { name: '🧩 Bộ đồ chơi / Sách truyện mới', cost: 350 }
     ];
-    html += `<div class="group-title">🎁 Quà con có thể đổi (Ví: ${appState.coins} Xu)</div>`;
+    html += `<div class="group-title">🎁 Quà con có thể đổi (Ví: ${child.coins} Xu)</div>`;
     rewards.forEach(r => {
-      const ok = appState.coins >= r.cost;
+      const ok = child.coins >= r.cost;
       html += `
         <div class="card">
           <div class="crit-info">
             <div class="crit-title">${r.name}</div>
             <div class="crit-meta">Cần ${r.cost} Xu</div>
           </div>
-          <span class="badge ${ok ? 'ready' : ''}">${ok ? 'Đủ Xu đổi!' : 'Thiếu ' + (r.cost - appState.coins) + ' Xu'}</span>
+          <span class="badge ${ok ? 'ready' : ''}">${ok ? 'Đủ Xu đổi!' : 'Thiếu ' + (r.cost - child.coins) + ' Xu'}</span>
         </div>`;
     });
   }
@@ -751,8 +866,8 @@ function toggleMode() {
     return;
   }
   showModal(`
-    <h3>Mở khóa Chế độ Phụ huynh duyệt</h3>
-    <input type="password" id="pinInput" inputmode="numeric" maxlength="4" placeholder="Nhập mã PIN (Mặc định: 1234)" />
+    <h3>Mở khóa Chế độ Phụ huynh</h3>
+    <input type="password" id="pinInput" class="text-input" inputmode="numeric" maxlength="4" placeholder="Nhập mã PIN (Mặc định: 1234)" />
     <div class="modal-footer">
       <button class="btn-ghost" style="color:#374151;background:#F3F4F6;" onclick="closeModal()">Hủy</button>
       <button class="btn-primary" onclick="verifyPin()">Xác nhận</button>
@@ -762,7 +877,7 @@ function toggleMode() {
 
 function verifyPin() {
   const val = document.getElementById('pinInput').value;
-  if (val === appState.pin) {
+  if (val === familyData.pin) {
     closeModal();
     isKidMode = false;
     render();
@@ -772,36 +887,50 @@ function verifyPin() {
 }
 
 function openSettings() {
+  const child = getActiveChild();
+  const shareLink = `${window.location.origin}${window.location.pathname}?family=${familyData.familyId}`;
   showModal(`
-    <h3>Cài đặt Hồ sơ</h3>
-    <label style="font-size:12px;font-weight:600;">Tên của con:</label>
-    <input type="text" id="cfgName" value="${appState.childName}" />
-    <label style="font-size:12px;font-weight:600;">Mã PIN Phụ huynh (4 số):</label>
-    <input type="text" id="cfgPin" maxlength="4" value="${appState.pin}" />
-    <label style="font-size:12px;font-weight:600;">Link Google Apps Script:</label>
-    <input type="text" id="cfgUrl" value="${appState.scriptUrl}" />
-    <div class="modal-footer">
-      <button class="btn-ghost" style="color:#374151;background:#F3F4F6;" onclick="closeModal()">Đóng</button>
-      <button class="btn-primary" onclick="saveSettings()">Lưu cài đặt</button>
+    <h3>Cài đặt Gia đình (${familyData.familyId})</h3>
+    <label class="field-label">Tên bé đang chọn:</label>
+    <input type="text" id="cfgName" class="text-input" value="${child.name}" />
+    <label class="field-label">Đổi Mã PIN Phụ huynh (4 số):</label>
+    <input type="text" id="cfgPin" class="text-input" maxlength="4" value="${familyData.pin}" />
+    <label class="field-label">Link vào nhanh cho máy của con / vợ chồng:</label>
+    <input type="text" class="text-input" readonly value="${shareLink}" onclick="this.select()" style="background:#F9FAFB;font-size:12px;" />
+    <div class="modal-footer" style="justify-content:space-between;">
+      <button class="btn-ghost" style="color:#DC2626;background:#FEE2E2;" onclick="switchFamilyPrompt()">Đổi Mã Gia Đình</button>
+      <div style="display:flex;gap:8px;">
+        <button class="btn-ghost" style="color:#374151;background:#F3F4F6;" onclick="closeModal()">Đóng</button>
+        <button class="btn-primary" onclick="saveSettings()">Lưu</button>
+      </div>
     </div>
   `);
 }
 
 function saveSettings() {
-  appState.childName = document.getElementById('cfgName').value.trim() || 'Con yêu (Lớp 6)';
-  appState.pin = document.getElementById('cfgPin').value.trim() || '1234';
-  appState.scriptUrl = document.getElementById('cfgUrl').value.trim() || DEFAULT_SCRIPT_URL;
+  const child = getActiveChild();
+  child.name = document.getElementById('cfgName').value.trim() || 'Con yêu';
+  familyData.pin = document.getElementById('cfgPin').value.trim() || '1234';
   closeModal();
   render();
   saveAndSync();
 }
 
+function switchFamilyPrompt() {
+  closeModal();
+  localStorage.removeItem('littlestar_active_family');
+  window.history.replaceState({}, document.title, window.location.pathname);
+  document.getElementById('appShell').style.display = 'none';
+  document.getElementById('welcomeView').style.display = 'flex';
+}
+
 function closeWeek() {
-  const res = calculateScore();
+  const child = getActiveChild();
+  const res = calculateScore(child);
   let bonus = res.finalScore >= res.maxPossible * 0.9 ? 30 : 0;
   let earned = Math.round(res.finalScore) + bonus;
   showModal(`
-    <h3>Chốt kết quả tuần</h3>
+    <h3>Chốt tuần cho ${child.name}</h3>
     <p style="font-size:13.5px;line-height:1.5;">
       Tổng điểm đã duyệt: <b>${res.finalScore.toFixed(1)} / ${res.maxPossible.toFixed(0)} đ</b><br/>
       Quy đổi thưởng: <b>+${earned} Xu</b> ${bonus > 0 ? '(đã gồm +30 Xu thưởng xuất sắc)' : ''}<br/><br/>
@@ -815,9 +944,9 @@ function closeWeek() {
 }
 
 function confirmCloseWeek(earned) {
-  appState.coins += earned;
-  appState.logs = {};
-  initLogs();
+  const child = getActiveChild();
+  child.coins += earned;
+  child.logs = createEmptyLogs();
   closeModal();
   render();
   saveAndSync();
@@ -831,9 +960,7 @@ function closeModal() {
   document.getElementById('modalBackdrop').classList.remove('open');
 }
 
-loadLocal();
-render();
-pullFromCloud();
+bootApp();
 </script>
 </body>
 </html>
