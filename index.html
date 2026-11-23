@@ -70,7 +70,6 @@
       cursor: pointer;
     }
 
-    /* Child Switcher Bar */
     .child-bar {
       background: #E0F2F1;
       padding: 8px 14px;
@@ -98,11 +97,7 @@
       box-shadow: 0 1px 4px rgba(0,0,0,0.06);
     }
     body.kid-mode .child-pill.active { border-color: var(--kid-accent); color: var(--kid-dark); }
-    .child-pill.add-btn {
-      background: transparent;
-      border: 1.5px dashed var(--primary-dark);
-      color: var(--primary-dark);
-    }
+    .child-pill.add-btn { background: transparent; border: 1.5px dashed var(--primary-dark); color: var(--primary-dark); }
 
     .summary-box {
       background: #fff;
@@ -182,6 +177,91 @@
       background: #F59E0B;
     }
 
+    /* Kid Sub-navigation (Nhiệm vụ vs Khu vườn) */
+    .kid-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin: 12px 12px 4px;
+      max-width: 680px;
+    }
+    .kid-nav-btn {
+      padding: 10px;
+      border-radius: 12px;
+      border: 1.5px solid #FCD34D;
+      background: #fff;
+      font-weight: 700;
+      font-size: 13.5px;
+      color: #B45309;
+      cursor: pointer;
+    }
+    .kid-nav-btn.active {
+      background: var(--kid-accent);
+      color: #fff;
+      border-color: var(--kid-accent);
+      box-shadow: 0 2px 6px rgba(255,152,0,0.25);
+    }
+
+    /* Garden Card */
+    .garden-stage {
+      background: linear-gradient(180deg, #E0F7FA 0%, #E8F5E9 72%, #D7CCC8 100%);
+      border-radius: 22px;
+      padding: 20px 16px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid #B2EBF2;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+      margin-bottom: 14px;
+    }
+    .garden-sky {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #00695C;
+      margin-bottom: 10px;
+    }
+    .tree-avatar {
+      font-size: 84px;
+      line-height: 1.1;
+      margin: 12px 0;
+      display: inline-block;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      user-select: none;
+    }
+    .tree-avatar.bounce { transform: scale(1.22) rotate(4deg); }
+    .water-btn {
+      background: linear-gradient(135deg, #0288D1, #26C6DA);
+      color: #fff;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 99px;
+      font-size: 14.5px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(2,136,209,0.3);
+      margin-top: 10px;
+    }
+    .water-btn:disabled {
+      background: #9CA3AF;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+    .harvest-btn {
+      background: linear-gradient(135deg, #F59E0B, #EA580C);
+      color: #fff;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 99px;
+      font-size: 14.5px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(234,88,12,0.35);
+      margin-top: 10px;
+    }
+
     .container { padding: 12px; max-width: 680px; margin: 0 auto; }
     .group-title { font-size: 14px; font-weight: 700; color: var(--primary-dark); margin: 16px 4px 8px; }
     body.kid-mode .group-title { color: #B45309; }
@@ -252,13 +332,12 @@
     .kid-check-btn.locked-fail { background: #FEE2E2; border-color: var(--danger); color: #991B1B; }
 
     .counter-pill { min-width: 48px; text-align: center; font-size: 13px; font-weight: 700; }
-    .progress-track { width: 100%; height: 10px; background: #FEF3C7; border-radius: 99px; overflow: hidden; margin-top: 8px; }
+    .progress-track { width: 100%; height: 10px; background: rgba(0,0,0,0.08); border-radius: 99px; overflow: hidden; margin-top: 8px; }
     .progress-fill { height: 100%; background: var(--kid-accent); transition: width 0.3s ease; }
 
     .badge { padding: 5px 10px; border-radius: 99px; font-size: 11.5px; font-weight: 700; background: #F3F4F6; color: #4B5563; }
     .badge.ready { background: #DCFCE7; color: #166534; }
 
-    /* Welcome / Family Login Screen */
     .welcome-screen {
       min-height: 100vh;
       display: flex;
@@ -288,14 +367,7 @@
       font-family: inherit;
     }
     .role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 6px; }
-    .role-btn {
-      padding: 12px;
-      border-radius: 12px;
-      border: none;
-      font-weight: 700;
-      font-size: 13.5px;
-      cursor: pointer;
-    }
+    .role-btn { padding: 12px; border-radius: 12px; border: none; font-weight: 700; font-size: 13.5px; cursor: pointer; }
 
     .modal-backdrop {
       position: fixed;
@@ -308,7 +380,7 @@
       padding: 16px;
     }
     .modal-backdrop.open { display: flex; }
-    .modal-card { background: #fff; width: 100%; max-width: 400px; border-radius: 16px; padding: 18px; }
+    .modal-card { background: #fff; width: 100%; max-width: 400px; border-radius: 16px; padding: 18px; max-height: 90vh; overflow-y: auto; }
     .modal-card h3 { margin: 0 0 10px; font-size: 16px; }
     .modal-footer { display: flex; justify-content: flex-end; gap: 8px; }
     .sync-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #A7F3D0; margin-right: 4px; }
@@ -336,15 +408,15 @@
     </div>
   </div>
 
-  <!-- Giao diện chính của Ứng dụng -->
+  <!-- Giao diện chính -->
   <div id="appShell" style="display:none;">
     <header class="app-bar">
       <div>
         <div class="app-title">
           <span id="headerTitle">LittleStar</span>
-          <span class="fam-tag" id="headerFamTag" onclick="switchFamilyPrompt()" title="Đổi Mã Gia Đình"></span>
+          <span class="fam-tag" id="headerFamTag" onclick="switchFamilyPrompt()"></span>
         </div>
-        <div class="app-sub"><span class="sync-dot" id="syncDot"></span><span id="headerSub">Ví: 120 Xu</span></div>
+        <div class="app-sub"><span class="sync-dot" id="syncDot"></span><span id="headerSub">Ví: 0 Xu</span></div>
       </div>
       <div class="header-actions">
         <button class="btn-ghost" onclick="pullFromCloud()" title="Đồng bộ dữ liệu">🔄</button>
@@ -353,10 +425,15 @@
       </div>
     </header>
 
-    <!-- Thanh chuyển đổi nhiều con trong gia đình -->
     <div class="child-bar" id="childBar"></div>
 
-    <div class="summary-box">
+    <!-- Thanh chuyển tab cho chế độ Con -->
+    <div class="kid-nav" id="kidNav" style="display:none; margin: 10px auto 0;">
+      <button class="kid-nav-btn active" id="tabKidTasks" onclick="switchKidTab('tasks')">📋 Nhiệm vụ hôm nay</button>
+      <button class="kid-nav-btn" id="tabKidGarden" onclick="switchKidTab('garden')">🌱 Khu vườn của con</button>
+    </div>
+
+    <div class="summary-box" id="summaryBox">
       <div class="score-row">
         <div>
           <div class="score-label" id="scoreLabel">Điểm đã duyệt tuần này</div>
@@ -415,9 +492,17 @@ const DEFAULT_CRITERIA = [
   { id: '26', group: 'V. Điểm trừ vi phạm', title: '26. Đi chơi quá giờ (-10đ/lần)', max: 0, target: 0, type: 'penalty', unit: 10 },
 ];
 
+const TREE_TYPES = [
+  { name: 'Cây Táo Thần Kỳ', stages: ['🌱', '🌿', '🌳', '🌸', '🍎'] },
+  { name: 'Cây Dâu Tây Ngọt Ngào', stages: ['🌱', '🌿', '🍀', '🌼', '🍓'] },
+  { name: 'Cây Cam Vàng Rực Rỡ', stages: ['🌱', '🌿', '🌳', '💮', '🍊'] },
+  { name: 'Cây Hoa Hướng Dương', stages: ['🌱', '🌿', '🪴', ' buds', '🌻'] }
+];
+
 const DAYS = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
 let selectedDay = (new Date().getDay() + 6) % 7;
 let isKidMode = false;
+let kidTab = 'tasks'; // 'tasks' | 'garden'
 
 let familyData = {
   familyId: '',
@@ -438,7 +523,13 @@ function createChildProfile(name) {
   return {
     name: name || 'Con yêu',
     coins: 0,
-    logs: createEmptyLogs()
+    logs: createEmptyLogs(),
+    garden: {
+      treeTypeIdx: 0,
+      waterUsed: 0,     // Tổng giọt nước đã tưới cho cây hiện tại (đạt 50 là thu hoạch)
+      waterSpentTotal: 0, // Tổng giọt nước đã dùng từ trước đến nay
+      harvests: 0       // Số cây đã thu hoạch thành công
+    }
   };
 }
 
@@ -450,12 +541,30 @@ function getActiveChild() {
     familyData.activeChildIdx = 0;
   }
   const child = familyData.children[familyData.activeChildIdx];
+  if (!child.garden) {
+    child.garden = { treeTypeIdx: 0, waterUsed: 0, waterSpentTotal: 0, harvests: 0 };
+  }
   DEFAULT_CRITERIA.forEach(c => {
     if (!child.logs[c.id]) {
       child.logs[c.id] = (c.type === 'daily' || c.type === 'weekly') ? [0,0,0,0,0,0,0] : [0];
     }
   });
   return child;
+}
+
+// Tính số giọt nước khả dụng của bé = Tổng số lần được duyệt đạt trong tuần + điểm thưởng - số nước đã tưới tuần này
+function getAvailableWater(child) {
+  let approvedCount = 0;
+  DEFAULT_CRITERIA.forEach(c => {
+    const logs = child.logs[c.id] || [];
+    if (c.type === 'daily' || c.type === 'weekly') {
+      approvedCount += logs.filter(v => v === 1).length;
+    } else if (c.type === 'bonus') {
+      approvedCount += (logs[0] || 0) * 2;
+    }
+  });
+  const spentThisWeek = child.garden.waterSpentThisWeek || 0;
+  return Math.max(0, approvedCount - spentThisWeek);
 }
 
 function bootApp() {
@@ -477,7 +586,7 @@ function bootApp() {
       familyData = Object.assign(familyData, JSON.parse(cached));
     } catch (e) {}
   } else {
-    familyData.children = [createChildProfile('Bé Minh (Lớp 6)')];
+    familyData.children = [createChildProfile('Con yêu')];
   }
 
   document.getElementById('welcomeView').style.display = 'none';
@@ -536,7 +645,6 @@ async function pullFromCloud(isFirstJoin = false) {
       localStorage.setItem('littlestar_data_' + familyData.familyId, JSON.stringify(familyData));
       render();
     } else if (isFirstJoin) {
-      // Nếu là mã gia đình mới tinh trên server thì đẩy dữ liệu khởi tạo lên
       await saveAndSync();
     }
     dot.style.background = '#4ADE80';
@@ -551,6 +659,7 @@ function calculateScore(child) {
   let maxPossible = 0;
   let zeroedByGroup = {};
   let warnings = [];
+  let totalFails = 0;
 
   DEFAULT_CRITERIA.forEach(c => {
     const logs = child.logs[c.id] || [];
@@ -559,6 +668,7 @@ function calculateScore(child) {
       const approved = logs.filter(v => v === 1).length;
       const pending = logs.filter(v => v === 2).length;
       const fail = logs.filter(v => v === -1).length;
+      totalFails += fail;
       const std = c.target > 0 ? c.max / c.target : c.unit;
 
       let earned = Math.min(approved, c.target) * std;
@@ -581,7 +691,9 @@ function calculateScore(child) {
     } else if (c.type === 'bonus') {
       raw += (logs[0] || 0) * c.unit;
     } else if (c.type === 'penalty') {
-      raw -= (logs[0] || 0) * c.unit;
+      const pCnt = logs[0] || 0;
+      totalFails += pCnt;
+      raw -= pCnt * c.unit;
     }
   });
 
@@ -603,7 +715,8 @@ function calculateScore(child) {
     pendingPoints,
     maxPossible,
     group20,
-    warnings
+    warnings,
+    totalFails
   };
 }
 
@@ -660,6 +773,40 @@ function selectChild(idx) {
   render();
 }
 
+function switchKidTab(tab) {
+  kidTab = tab;
+  render();
+}
+
+function waterPlant() {
+  const child = getActiveChild();
+  const avail = getAvailableWater(child);
+  if (avail <= 0) return;
+
+  child.garden.waterUsed = (child.garden.waterUsed || 0) + 1;
+  child.garden.waterSpentThisWeek = (child.garden.waterSpentThisWeek || 0) + 1;
+  render();
+
+  const treeEl = document.getElementById('treeAvatar');
+  if (treeEl) {
+    treeEl.classList.add('bounce');
+    setTimeout(() => treeEl.classList.remove('bounce'), 300);
+  }
+  saveAndSync();
+}
+
+function harvestPlant() {
+  const child = getActiveChild();
+  if ((child.garden.waterUsed || 0) < 40) return;
+  child.coins += 20;
+  child.garden.harvests = (child.garden.harvests || 0) + 1;
+  child.garden.waterUsed = 0;
+  child.garden.treeTypeIdx = ((child.garden.treeTypeIdx || 0) + 1) % TREE_TYPES.length;
+  alert(`🎉 Chúc mừng ${child.name} đã thu hoạch cây trưởng thành và nhận thưởng +20 Xu!`);
+  render();
+  saveAndSync();
+}
+
 function addNewChildModal() {
   showModal(`
     <h3>Thêm hồ sơ con mới</h3>
@@ -684,11 +831,12 @@ function confirmAddChild() {
 function render() {
   const child = getActiveChild();
   const res = calculateScore(child);
+  const availWater = getAvailableWater(child);
 
   document.body.className = isKidMode ? 'kid-mode' : '';
   document.getElementById('headerTitle').textContent = isKidMode ? 'Góc Của Con ⭐' : 'LittleStar Duyệt';
   document.getElementById('headerFamTag').textContent = `Mã: ${familyData.familyId}`;
-  document.getElementById('headerSub').textContent = `${child.name} • Ví: ${child.coins} Xu`;
+  document.getElementById('headerSub').textContent = `${child.name} • Ví: ${child.coins} Xu • 💧 ${availWater} nước`;
   document.getElementById('btnMode').textContent = isKidMode ? 'Bố/Mẹ duyệt' : 'Chế độ Con';
   document.getElementById('btnSettings').style.display = isKidMode ? 'none' : 'inline-block';
   document.getElementById('btnCloseWeek').style.display = isKidMode ? 'none' : 'inline-block';
@@ -704,6 +852,27 @@ function render() {
     childHtml += `<button class="child-pill add-btn" onclick="addNewChildModal()">+ Thêm bé</button>`;
   }
   childBar.innerHTML = childHtml;
+
+  // Thanh chuyển tab Nhiệm vụ / Khu vườn trong Chế độ Con
+  const kidNav = document.getElementById('kidNav');
+  const summaryBox = document.getElementById('summaryBox');
+  if (isKidMode) {
+    kidNav.style.display = 'grid';
+    document.getElementById('tabKidTasks').className = `kid-nav-btn ${kidTab === 'tasks' ? 'active' : ''}`;
+    document.getElementById('tabKidGarden').className = `kid-nav-btn ${kidTab === 'garden' ? 'active' : ''}`;
+    document.getElementById('tabKidGarden').textContent = availWater > 0
+      ? `🌱 Khu vườn (${availWater} 💧)`
+      : `🌱 Khu vườn của con`;
+    summaryBox.style.display = (kidTab === 'tasks') ? 'block' : 'none';
+  } else {
+    kidNav.style.display = 'none';
+    summaryBox.style.display = 'block';
+  }
+
+  if (isKidMode && kidTab === 'garden') {
+    renderGardenView(child, res, availWater);
+    return;
+  }
 
   document.getElementById('scoreLabel').textContent = isKidMode
     ? `Điểm đã duyệt (+${res.pendingPoints.toFixed(1)}đ chờ duyệt)`
@@ -749,6 +918,77 @@ function render() {
   renderTaskList(child);
 }
 
+function renderGardenView(child, res, availWater) {
+  const container = document.getElementById('mainContainer');
+  const g = child.garden;
+  const tree = TREE_TYPES[g.treeTypeIdx || 0];
+  const waterUsed = g.waterUsed || 0;
+  const goalWater = 40; // 40 lần việc tốt được duyệt sẽ thu hoạch 1 cây
+
+  let stageIdx = 0;
+  let stageName = 'Cấp 1: Hạt mầm mới nhú';
+  if (waterUsed >= 40) { stageIdx = 4; stageName = 'Cấp 5: Cây sai trĩu quả (Sẵn sàng thu hoạch!)'; }
+  else if (waterUsed >= 28) { stageIdx = 3; stageName = 'Cấp 4: Cây đang đơm hoa'; }
+  else if (waterUsed >= 16) { stageIdx = 2; stageName = 'Cấp 3: Cây trưởng thành xanh tốt'; }
+  else if (waterUsed >= 6) { stageIdx = 1; stageName = 'Cấp 2: Cây non vươn lá'; }
+
+  const pct = Math.min(100, Math.round((waterUsed / goalWater) * 100));
+  const weather = res.totalFails > 0
+    ? `⛅ Trời hơi âm u (${res.totalFails} lỗi tuần này)`
+    : `☀️ Trời nắng đẹp rực rỡ`;
+
+  const rewards = [
+    { name: '🍕 Chọn món ăn yêu thích cuối tuần', cost: 100 },
+    { name: '🎢 Đi công viên / Khu vui chơi', cost: 200 },
+    { name: '🧩 Bộ đồ chơi / Sách truyện mới', cost: 350 }
+  ];
+
+  container.innerHTML = `
+    <div class="garden-stage">
+      <div class="garden-sky">
+        <span>${weather}</span>
+        <span>🏆 Đã thu hoạch: ${g.harvests || 0} cây</span>
+      </div>
+      <div style="font-size:15px;font-weight:700;color:#004D40;">${tree.name}</div>
+      <div style="font-size:12px;color:#00695C;margin-top:2px;">${stageName}</div>
+
+      <div class="tree-avatar" id="treeAvatar">${tree.stages[stageIdx]}</div>
+
+      <div style="max-width:300px;margin:0 auto;">
+        <div style="display:flex;justify-content:space-between;font-size:11.5px;font-weight:700;color:#004D40;">
+          <span>Độ lớn của cây</span>
+          <span>${waterUsed} / ${goalWater} 💧</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" style="width:${pct}%;background:#0288D1;"></div></div>
+      </div>
+
+      ${waterUsed >= goalWater
+        ? `<button class="harvest-btn" onclick="harvestPlant()">🍎 Thu hoạch ngay (+20 Xu)</button>`
+        : `<button class="water-btn" ${availWater <= 0 ? 'disabled' : ''} onclick="waterPlant()">
+            💧 Tưới cây ngay (Còn ${availWater} giọt nước)
+           </button>`
+      }
+
+      <div style="font-size:11.5px;color:#374151;margin-top:12px;line-height:1.4;">
+        Mỗi việc tốt con hoàn thành và được bố/mẹ duyệt sẽ tạo ra <b>+1 Giọt Nước 💧</b> để nuôi cây lớn!
+      </div>
+    </div>
+
+    <div class="group-title">🎁 Cửa hàng đổi quà (Ví của con: ${child.coins} Xu)</div>
+    ${rewards.map(r => {
+      const ok = child.coins >= r.cost;
+      return `
+        <div class="card">
+          <div class="crit-info">
+            <div class="crit-title">${r.name}</div>
+            <div class="crit-meta">Cần ${r.cost} Xu (Nhờ bố/mẹ đổi giúp khi đủ Xu)</div>
+          </div>
+          <span class="badge ${ok ? 'ready' : ''}">${ok ? 'Đủ Xu đổi!' : 'Thiếu ' + (r.cost - child.coins) + ' Xu'}</span>
+        </div>`;
+    }).join('')}
+  `;
+}
+
 function renderTaskList(child) {
   const container = document.getElementById('mainContainer');
   let html = '';
@@ -774,7 +1014,7 @@ function renderTaskList(child) {
         statusBadge = `<span class="status-pill pending">⏳ Con đã tick - Chờ bố mẹ duyệt</span>`;
       } else if (st === 1) {
         cardClass += ' approved-card';
-        statusBadge = `<span class="status-pill approved">✓ Bố mẹ đã duyệt đạt</span>`;
+        statusBadge = `<span class="status-pill approved">✓ Đã duyệt (+1 💧 nước tưới cây)</span>`;
       } else if (st === -1) {
         cardClass += ' failed-card';
         statusBadge = `<span class="status-pill failed">✕ Vi phạm / Chưa đạt</span>`;
@@ -836,32 +1076,13 @@ function renderTaskList(child) {
     }
   });
 
-  if (isKidMode) {
-    const rewards = [
-      { name: '🍕 Chọn món ăn yêu thích cuối tuần', cost: 100 },
-      { name: '🎢 Đi công viên / Khu vui chơi', cost: 200 },
-      { name: '🧩 Bộ đồ chơi / Sách truyện mới', cost: 350 }
-    ];
-    html += `<div class="group-title">🎁 Quà con có thể đổi (Ví: ${child.coins} Xu)</div>`;
-    rewards.forEach(r => {
-      const ok = child.coins >= r.cost;
-      html += `
-        <div class="card">
-          <div class="crit-info">
-            <div class="crit-title">${r.name}</div>
-            <div class="crit-meta">Cần ${r.cost} Xu</div>
-          </div>
-          <span class="badge ${ok ? 'ready' : ''}">${ok ? 'Đủ Xu đổi!' : 'Thiếu ' + (r.cost - child.coins) + ' Xu'}</span>
-        </div>`;
-    });
-  }
-
   container.innerHTML = html;
 }
 
 function toggleMode() {
   if (!isKidMode) {
     isKidMode = true;
+    kidTab = 'tasks';
     render();
     return;
   }
@@ -890,9 +1111,11 @@ function openSettings() {
   const child = getActiveChild();
   const shareLink = `${window.location.origin}${window.location.pathname}?family=${familyData.familyId}`;
   showModal(`
-    <h3>Cài đặt Gia đình (${familyData.familyId})</h3>
+    <h3>Cài đặt (${familyData.familyId})</h3>
     <label class="field-label">Tên bé đang chọn:</label>
     <input type="text" id="cfgName" class="text-input" value="${child.name}" />
+    <label class="field-label">Số Xu hiện tại của ${child.name} (Chỉnh tay / Trừ khi đổi quà):</label>
+    <input type="number" id="cfgCoins" class="text-input" value="${child.coins}" />
     <label class="field-label">Đổi Mã PIN Phụ huynh (4 số):</label>
     <input type="text" id="cfgPin" class="text-input" maxlength="4" value="${familyData.pin}" />
     <label class="field-label">Link vào nhanh cho máy của con / vợ chồng:</label>
@@ -910,6 +1133,8 @@ function openSettings() {
 function saveSettings() {
   const child = getActiveChild();
   child.name = document.getElementById('cfgName').value.trim() || 'Con yêu';
+  const parsedCoins = parseInt(document.getElementById('cfgCoins').value, 10);
+  if (!isNaN(parsedCoins)) child.coins = Math.max(0, parsedCoins);
   familyData.pin = document.getElementById('cfgPin').value.trim() || '1234';
   closeModal();
   render();
@@ -947,6 +1172,7 @@ function confirmCloseWeek(earned) {
   const child = getActiveChild();
   child.coins += earned;
   child.logs = createEmptyLogs();
+  if (child.garden) child.garden.waterSpentThisWeek = 0;
   closeModal();
   render();
   saveAndSync();
